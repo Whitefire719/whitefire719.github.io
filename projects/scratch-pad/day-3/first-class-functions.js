@@ -118,7 +118,7 @@ function modifyStrings(strings, modify) {
     return result;
     
     // YOUR CODE ABOVE HERE //
-}
+} 
 
 /** 
  * Given an Array of Strings and a Function designed to test the String in some 
@@ -132,27 +132,20 @@ function modifyStrings(strings, modify) {
 function allStringsPass(strings, test) {
     // YOUR CODE BELOW HERE //
     // func as param
-        var arr = [];
-    for (var i = 0; i <= strings.length - 1; i++) {
-        var string = strings[i];
        
-        arr.push(string);
-        if(test(strings[i]))  {
-            return true;
-        } else return false;
-       
-       
-       
-       
+        for (var i = 0; i < strings.length ; i++) {
         
-     
-     
-     
-    
+        if(!test(strings[i])) {
+            return false;
+        }
         
-    }
+        
+         
     
-    
+        }
+        return true;
+        
+       
     
     
     // YOUR CODE ABOVE HERE //
