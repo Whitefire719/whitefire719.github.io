@@ -133,7 +133,7 @@ _.last = function(array, number) {
 _.indexOf = function(array, value) {
    for(let i = 0; i , array.length; i++) {
        if(array[i] === value) {
-           return 1;
+           return i;
        }
    else if (!array.includes(value)) {
        return -1;
@@ -180,14 +180,14 @@ _.contains = function(array, value) {
 _.each = function(collection, func) {
     if (Array.isArray(collection)) {
         for (var i = 0; i < collection.length; i++) {
-            func(collection[i], i, collection)
+            func(collection[i], i, collection);
         }
     } else {
         for (var key in collection) {
             func(collection[key], key, collection);
         }
     }
-}
+};
 
 /** _.unique
 * Arguments:
@@ -198,7 +198,19 @@ _.each = function(collection, func) {
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.unique = function(array) {
+    let newArr = [];
+    for(let i = 0; i < array.length; i++) {
+        if(i === _.indexOf(array, array[i])) {
+            newArr.push(array[i]);
+        }
+        
+    }
+    return newArr;
+    
+        
+    
+} ;
 
 /** _.filter
 * Arguments:
@@ -215,7 +227,17 @@ _.each = function(collection, func) {
 * Extra Credit:
 *   use _.each in your implementation
 */
-
+_.filter = function(array, func) {
+   var newArr = [];
+   for(let i = 0; i < array.length; i++) {
+            var element = array[i];
+            if(func(element, i, array)) {
+                newArr.push(element)
+            }
+       
+   }
+    return newArr
+}
 
 /** _.reject
 * Arguments:
@@ -229,7 +251,16 @@ _.each = function(collection, func) {
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
+_.reject = function(array, func) {
+    var newArr = []
+    for(let i = 0; i < array.length; i++) {
+        var element = array[i];
+        if(!func(element, i, array)) {
+            newArr.push(element);
+        }
+    }
+    return newArr;
+}
 
 /** _.partition
 * Arguments:
@@ -249,7 +280,22 @@ _.each = function(collection, func) {
 *   }); -> [[2,4],[1,3,5]]
 }
 */
-
+_.partition = function(array, func) {
+    var truArr = [];
+    var falseArr = [];
+    for(let i = 0; i < array.length; i++) {
+        var element = array[i];
+        var key = array.keys()
+        if(func(element, key, array)) {
+            truArr.push(element)
+        }
+        else if(!func(element, key, array)) {
+            falseArr.push(element)
+        }
+    }
+    return [truArr, falseArr]
+    
+}
 
 /** _.map
 * Arguments:
@@ -266,7 +312,24 @@ _.each = function(collection, func) {
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+_.map = function(collection, func) {
+    var newArr = [];
+    if(Array.isArray(collection)) {
+        for(let i = 0; i < collection.length; i++) {
+           var element = collection[i];
+           var result = func(element, i, collection);
+            newArr.push(result);
+         }
+        
+    } else if(typeof(collection) === "object" && collection !== null && collection !== undefined) {
+       for(var key in collection) {
+           var value = collection[key];
+           var result2 = func(value, key, collection)
+            newArr.push(result2);
+        }
+        }   
+    return newArr;
+        }
 
 /** _.pluck
 * Arguments:
@@ -278,8 +341,9 @@ _.each = function(collection, func) {
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
-
-
+_.pluck = function(array, property) {
+    return array.map(array => array[property]);
+    }
 /** _.every
 * Arguments:
 *   1) A collection
@@ -300,6 +364,21 @@ _.each = function(collection, func) {
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+_.every = function(collection, func) {
+     let result = true;  
+     
+     if(!func) {
+         result = true;
+         
+     } else { 
+        _.each(collection, function(element, index, collection) {
+        (!func(element, index, collection)) ? result = false : result = result;
+        });
+    }
+    
+    return result;
+};
+
 
 
 /** _.some
