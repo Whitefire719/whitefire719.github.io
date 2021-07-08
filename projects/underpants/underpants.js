@@ -421,7 +421,27 @@ _.every = function(collection, func) {
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-
+_.reduce = function(array, func, seed) {
+    // determine if there is a seed first
+    if (seed === undefined) {
+        // set seed to first element of array
+        seed = array[0];
+        // loop through array to access all elements
+        for(let i = 1; i < array.length; i++) {
+            seed = func(seed, array[i], i);
+        }
+        
+        
+        // return seed, result of function call
+        return seed;
+    } else {
+        // loop over array
+         for(let i = 0; i < array.length; i++) {
+             seed = func(seed, array[i], i);
+         } // return seed
+         return seed;
+    }
+}
 
 /** _.extend
 * Arguments:
